@@ -1,0 +1,17 @@
+{
+  "name": "escher-js-ex",
+  "version": "1.0.0",
+  "description": "example webserver to send and authenticate http requests with escher",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ildi Czeller",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "escher-auth": "^3.2.0",
+    "express": "^4.17.1",
+    "http": "0.0.0"
+  }
+}
