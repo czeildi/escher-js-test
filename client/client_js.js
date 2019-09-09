@@ -1,16 +1,31 @@
 const http = require('http');
+const Escher = require('escher-auth');
+
+const escher = new Escher({
+  credentialScope: 'example/credential/scope',
+  accessKeyId: 'EscherJSExample',
+  apiSecret: 'ildiescherjssecret',
+  algoPrefix: 'EMS',
+  vendorKey: 'EMS',
+  authHeaderName: 'X-EMS-Auth',
+  dateHeaderName: 'X-EMS-Date'
+});
 
 const requestOptions = {
-  host: 'localhost',
+  hostname: 'localhost',
   port: 8080,
   method: 'GET',
   path: '/validate_request_js_js',
+  url: '/',
   headers: [
-      ['X-EMS-Date', (new Date()).toUTCString()],
+    ['X-EMS-Date', new Date().toISOString().replace(/[-:]/g, '').replace(/\.[0-9]+/, '')],
+    ['host', 'localhost'],
   ],
-}
+};
 
-const req = http.request(requestOptions, res => {
+const signedRequest = escher.signRequest(requestOptions, '', []);
+
+const req = http.request(signedRequest, res => {
     res.setEncoding('utf8');
     res.on('data', chunk => console.log('Response: ' + chunk));
 });
